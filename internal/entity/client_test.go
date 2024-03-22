@@ -7,7 +7,6 @@ import (
 )
 
 func TestCreateNewClient(t *testing.T) {
-
 	client, err := NewClient("john doe", "john@example.com")
 
 	assert.Nil(t, err)
@@ -21,4 +20,16 @@ func TestCreateNewClientWhenArgsAreInvalid(t *testing.T) {
 
 	assert.Nil(t, client)
 	assert.NotNil(t, err)
+}
+
+func TestUpdateClient(t *testing.T) {
+	client, _ := NewClient("john doe", "john@example.com")
+
+	err := client.Update("john silva", "silva@example.com")
+
+	assert.Nil(t, err)
+	assert.NotNil(t, client)
+
+	assert.Equal(t, "john silva", client.Name)
+	assert.Equal(t, "silva@example.com", client.Email)
 }
