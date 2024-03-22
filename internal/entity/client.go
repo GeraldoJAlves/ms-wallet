@@ -54,6 +54,7 @@ func (c *Client) Update(name, email string) error {
 
 	c.Name = name
 	c.Email = email
+	c.UpdatedAt = time.Now()
 
 	return nil
 }
