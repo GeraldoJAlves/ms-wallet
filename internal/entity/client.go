@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"errors"
 	"time"
 
 	"github.com/google/uuid"
@@ -15,11 +16,29 @@ type Client struct {
 }
 
 func NewClient(name, email string) (*Client, error) {
-	return &Client{
+	client := &Client{
 		ID:        uuid.New().String(),
 		Name:      name,
 		Email:     email,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
-	}, nil
+	}
+
+	if err := client.validate(); err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func (c *Client) validate() error {
+	if c.Name == "" {
+		return errors.New("name is required")
+	}
+
+	if c.Email == "" {
+		return errors.New("email is required")
+	}
+
+	return nil
 }
