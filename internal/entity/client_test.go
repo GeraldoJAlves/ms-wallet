@@ -33,3 +33,14 @@ func TestUpdateClient(t *testing.T) {
 	assert.Equal(t, "john silva", client.Name)
 	assert.Equal(t, "silva@example.com", client.Email)
 }
+
+func TestUpdateClientWithInvalidArgs(t *testing.T) {
+	client, _ := NewClient("john doe", "john@example.com")
+
+	err := client.Update("", "")
+
+	assert.NotNil(t, err)
+
+	assert.Equal(t, "john doe", client.Name)
+	assert.Equal(t, "john@example.com", client.Email)
+}
