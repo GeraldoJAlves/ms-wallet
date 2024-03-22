@@ -15,3 +15,10 @@ func TestCreateNewClient(t *testing.T) {
 	assert.Equal(t, "john doe", client.Name)
 	assert.Equal(t, "john@example.com", client.Email)
 }
+
+func TestCreateNewClientWhenArgsAreInvalid(t *testing.T) {
+	client, err := NewClient("", "")
+
+	assert.Nil(t, client)
+	assert.NotNil(t, err)
+}
