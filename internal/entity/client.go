@@ -44,11 +44,11 @@ func (c *Client) validate() error {
 }
 
 func (c *Client) Update(name, email string) error {
-	if c.Name == "" {
+	if name == "" {
 		return errors.New("name is required")
 	}
 
-	if c.Email == "" {
+	if email == "" {
 		return errors.New("email is required")
 	}
 
