@@ -42,3 +42,18 @@ func (c *Client) validate() error {
 
 	return nil
 }
+
+func (c *Client) Update(name, email string) error {
+	if c.Name == "" {
+		return errors.New("name is required")
+	}
+
+	if c.Email == "" {
+		return errors.New("email is required")
+	}
+
+	c.Name = name
+	c.Email = email
+
+	return nil
+}
