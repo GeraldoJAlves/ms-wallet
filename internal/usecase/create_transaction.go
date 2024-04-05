@@ -45,6 +45,12 @@ func (c *CreateTransactionUseCase) Execute(input CreateTransactionInputDTO) (*Cr
 		return nil, err
 	}
 
+	err = c.TransactionGateway.Create(transaction)
+
+	if err != nil {
+		return nil, err
+	}
+
 	return &CreateTransactionOutputDTO{
 		TransactionID: transaction.ID,
 	}, nil
