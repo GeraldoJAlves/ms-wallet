@@ -4,7 +4,10 @@ import (
 	"database/sql"
 	"testing"
 
+	"github.com/geraldojalves/ms-wallet/internal/entity"
 	"github.com/stretchr/testify/suite"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type ClientDBTestSuite struct {
@@ -30,4 +33,18 @@ func (s *ClientDBTestSuite) TearDownSuite() {
 
 func TestClientDBTestSuite(t *testing.T) {
 	suite.Run(t, new(ClientDBTestSuite))
+}
+
+func (s *ClientDBTestSuite) TestGet() {
+	client, _ := entity.NewClient("john doe", "j@j.com")
+
+	err := s.clientDB.Save(client)
+	s.Nil(err)
+
+	clientDB, err := s.clientDB.Get(client.ID)
+
+	s.Nil(err)
+	s.Equal(client.ID, clientDB.ID)
+	s.Equal(client.Name, clientDB.Name)
+	s.Equal(client.Email, clientDB.Email)
 }
