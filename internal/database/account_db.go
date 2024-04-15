@@ -21,7 +21,7 @@ func (a *AccountDB) FindByID(id string) (*entity.Account, error) {
 	client := &entity.Client{}
 	account.Client = client
 
-	stmt, err := a.DB.Prepare("SELECT a.id, a.balance, a.created_at, a.client_id, c.name, c.email, c.created_at FROM accounts a JOIN clients c ON (a.client_id = c.id)  WHERE id = ?")
+	stmt, err := a.DB.Prepare("SELECT a.id, a.balance, a.created_at, a.client_id, c.name, c.email, c.created_at FROM accounts a JOIN clients c ON (a.client_id = c.id)  WHERE a.id = ?")
 
 	if err != nil {
 		return nil, err
@@ -38,7 +38,7 @@ func (a *AccountDB) FindByID(id string) (*entity.Account, error) {
 }
 
 func (a *AccountDB) Save(account *entity.Account) error {
-	stmt, err := a.DB.Prepare("INSERT INTO accounts (id, client_id, balance, created_at) VALUE (?, ?, ?, ?)")
+	stmt, err := a.DB.Prepare("INSERT INTO accounts (id, client_id, balance, created_at) VALUES (?, ?, ?, ?)")
 
 	if err != nil {
 		return err
